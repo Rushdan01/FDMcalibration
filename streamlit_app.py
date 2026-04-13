@@ -15,21 +15,6 @@ measured_lengths = []
 
 # Use number_input instead of text_input
 n = st.number_input("How many cross measurements do you want to enter?", min_value=1, step=1)
-if st.checkbox("Include hole calibration"):
-            h = st.number_input("How many hole measurements?", min_value=1, step=1)
-
-            total_offset = 0
-
-            for i in range(int(h)):
-                st.write(f"Hole {i+1}")
-
-                t = st.number_input(f"TRUE hole diameter {i+1} (mm):", key=f"ht_{i}")
-                m = st.number_input(f"MEASURED hole diameter {i+1} (mm):", key=f"hm_{i}")
-
-                offset = m - scale * t
-                total_offset += offset
-
-            hole_offset = total_offset / h
 # Collect inputs
 for i in range(int(n)):
     st.write(f"Measurement {i+1}")
