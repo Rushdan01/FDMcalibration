@@ -13,7 +13,7 @@ true_lengths = []
 measured_lengths = []
 
 st.write("\nHow many cross measurements do you want to enter?")
-n = int(input(">> "))
+n = int(st.text_area("->"))
 
 for i in range(n):
     st.write(f"\nMeasurement {i+1}")
