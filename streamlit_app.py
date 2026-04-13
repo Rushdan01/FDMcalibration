@@ -12,7 +12,7 @@ st.write(
 true_lengths = []
 measured_lengths = []
 
-n = int(st.text_input("\nHow many cross measurements do you want to enter?"))
+n = float(st.text_input("\nHow many cross measurements do you want to enter?"))
 
 for i in range(n):
     st.write(f"\nMeasurement {i+1}")
@@ -52,7 +52,7 @@ contour_offset = (sum_y - scale * sum_x) / n
 # -----------------------------
 # OPTIONAL: HOLE CALIBRATION
 # -----------------------------
-choice = st.text_input("\nDo you want to enter hole measurements? (y/n)").lower()
+choice = str(st.text_input("\nDo you want to enter hole measurements? (y/n)")).lower()
 
 hole_offset = None
 
@@ -65,10 +65,10 @@ if choice == "y":
     for i in range(h):
         st.write(f"\nHole {i+1}")
 
-        t = st.text_input("Enter TRUE hole diameter (mm):")
+        t = float(st.text_input("Enter TRUE hole diameter (mm):"))
         ##t = float(input(">> "))
 
-        m = st.write("Enter MEASURED hole diameter (mm):")
+        m = float(st.write("Enter MEASURED hole diameter (mm):"))
         ##m = float(input(">> "))
 
         # offset = measured - scale * true
