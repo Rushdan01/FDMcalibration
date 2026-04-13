@@ -15,7 +15,7 @@ measured_lengths = []
 
 # Use number_input instead of text_input
 n = st.number_input("How many cross measurements do you want to enter?", min_value=1, step=1)
- if st.checkbox("Include hole calibration"):
+if st.checkbox("Include hole calibration"):
             h = st.number_input("How many hole measurements?", min_value=1, step=1)
 
             total_offset = 0
