@@ -80,10 +80,10 @@ if st.button("Calculate"):
         st.write("=== RESULTS ===")
         st.write("Scale factor:", round(scale, 4))
         st.write("Scaling error (%):", round((scale - 1) * 100, 3))
-        st.write("Contour offset (mm):", round(contour_offset, 4))
+        st.write("Absolute contour error (mm):", round(contour_offset, 4))
 
         if hole_offset is not None:
-            st.write("Hole offset (mm):", round(hole_offset, 4))
+            st.write("Absolute hole error (mm):", round(hole_offset, 4))
 
         # -----------------------------
         # SLICER SETTINGS
@@ -94,8 +94,8 @@ if st.button("Calculate"):
         horizontal_expansion = -contour_offset / 2
 
         st.write("XY Scale:", round(xy_scale, 4))
-        st.write("Horizontal Expansion (mm):", round(horizontal_expansion, 4))
+        st.write("XY Contour Offset (mm):", round(horizontal_expansion, 4))
 
         if hole_offset is not None:
             hole_comp = -hole_offset / 2
-            st.write("Hole Horizontal Expansion (mm):", round(hole_comp, 4))
+            st.write("Hole Offset (mm):", round(hole_comp, 4))
