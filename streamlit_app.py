@@ -21,7 +21,7 @@ for i in range(n):
     ##t = float(input(">> "))
     true_lengths.append(t)
 
-    m = float(st.text_input("Enter MEASURED length (printed, mm):")
+    m = float(st.text_input("Enter MEASURED length (printed, mm):"))
     ##m = float(input(">> "))
     measured_lengths.append(m)
 
@@ -88,7 +88,6 @@ st.write("Contour offset (total, mm):", round(contour_offset, 4))
 
 if hole_offset is not None:
     st.write("Hole offset (total, mm):", round(hole_offset, 4))
-
 # -----------------------------
 # SLICER SETTINGS
 # -----------------------------
