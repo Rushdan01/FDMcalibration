@@ -1,13 +1,13 @@
 import streamlit as st
 
-st.title("FDM Calibration Tool")
+st.title("# FDM Calibration Tool")
 st.write(
-    "Print the Calibraation Cross and input Expected values and Actual Values"
+    " Print the Calibraation Cross and input Expected values and Actual Values"
 )
 st.write(
-    "# -----------------------------\n"
-    "# INPUT: CROSS DIMENSIONS\n"
-    "# -----------------------------"
+    " -----------------------------\n"
+    " INPUT: CROSS DIMENSIONS\n"
+    " -----------------------------"
 )
 
 
