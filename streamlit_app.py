@@ -70,7 +70,7 @@ if st.button("Calculate"):
         # -----------------------------
         # OPTIONAL: HOLE CALIBRATION
         # -----------------------------
-       \\\ hole_offset = None
+       # hole_offset = None
 
 #        if st.checkbox("Include hole calibration"):
 #           h = st.number_input("How many hole measurements?", min_value=1, step=1)
