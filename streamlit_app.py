@@ -13,37 +13,52 @@ INPUT: CROSS DIMENSIONS
 true_lengths = []
 measured_lengths = []
 
-# Use number_input instead of text_input
+# Number of cross measurements
 n = st.number_input("How many cross measurements do you want to enter?", min_value=1, step=1)
-# Collect inputs
+
+# Collect cross inputs (ALWAYS shown)
 for i in range(int(n)):
     st.write(f"Measurement {i+1}")
 
-    t = st.number_input(f"Enter TRUE length {i+1} (CAD, mm):", key=f"t_{i}")
-    m = st.number_input(f"Enter MEASURED length {i+1} (printed, mm):", key=f"m_{i}")
+    t = st.number_input(f"TRUE length {i+1} (CAD, mm):", key=f"t_{i}")
+    m = st.number_input(f"MEASURED length {i+1} (printed, mm):", key=f"m_{i}")
 
     true_lengths.append(t)
     measured_lengths.append(m)
 
-# Add button to control calculation
+# -----------------------------
+# OPTIONAL: HOLE CALIBRATION
+# -----------------------------
+hole_offset = None
+include_holes = st.checkbox("Include hole calibration")
+
+hole_true = []
+hole_measured = []
+
+if include_holes:
+    h = st.number_input("How many hole measurements?", min_value=1, step=1)
+
+    for i in range(int(h)):
+        st.write(f"Hole {i+1}")
+
+        t = st.number_input(f"TRUE hole diameter {i+1} (mm):", key=f"ht_{i}")
+        m = st.number_input(f"MEASURED hole diameter {i+1} (mm):", key=f"hm_{i}")
+
+        hole_true.append(t)
+        hole_measured.append(m)
+
+# -----------------------------
+# CALCULATE BUTTON
+# -----------------------------
 if st.button("Calculate"):
 
     # -----------------------------
     # CALCULATE SCALE + OFFSET
     # -----------------------------
-    sum_x = 0
-    sum_y = 0
-    sum_xx = 0
-    sum_xy = 0
-
-    for i in range(int(n)):
-        x = true_lengths[i]
-        y = measured_lengths[i]
-
-        sum_x += x
-        sum_y += y
-        sum_xx += x * x
-        sum_xy += x * y
+    sum_x = sum(true_lengths)
+    sum_y = sum(measured_lengths)
+    sum_xx = sum(x*x for x in true_lengths)
+    sum_xy = sum(true_lengths[i]*measured_lengths[i] for i in range(int(n)))
 
     # Avoid division by zero
     if (n * sum_xx - sum_x * sum_x) == 0:
@@ -53,25 +68,15 @@ if st.button("Calculate"):
         contour_offset = (sum_y - scale * sum_x) / n
 
         # -----------------------------
-        # OPTIONAL: HOLE CALIBRATION
+        # HOLE CALCULATION
         # -----------------------------
-       # hole_offset = None
+        if include_holes:
+            total_offset = 0
+            for i in range(int(h)):
+                offset = hole_measured[i] - scale * hole_true[i]
+                total_offset += offset
 
-#        if st.checkbox("Include hole calibration"):
-#           h = st.number_input("How many hole measurements?", min_value=1, step=1)
-#
-#            total_offset = 0
-#
-#            for i in range(int(h)):
-#                st.write(f"Hole {i+1}")
-#
-#                t = st.number_input(f"TRUE hole diameter {i+1} (mm):", key=f"ht_{i}")
-#                m = st.number_input(f"MEASURED hole diameter {i+1} (mm):", key=f"hm_{i}")
-
-#                offset = m - scale * t
-#                total_offset += offset
-
-#            hole_offset = total_offset / h 
+            hole_offset = total_offset / h
 
         # -----------------------------
         # OUTPUT RESULTS
